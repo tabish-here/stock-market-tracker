@@ -40,6 +40,16 @@ if diff_percent > 0:
     articles = news_response.json()["articles"]
     three_articles = articles[:3]
     print(three_articles)
-
     
+    formatted_articles = [f"Headline: {article['title']}. \nBrief: {article['description']}" for article in
+                            three_articles]
+
+    client = Client(account_sid, auth_token)
+    for article in formatted_articles:
+        message = client.messages.create(
+            body=article,
+            from_="Your_twilio_number",
+            to="Your_mobile_number"
+        )
+     
 
